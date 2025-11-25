@@ -46,17 +46,25 @@ class AuthController extends Controller
             'password' => 'required|string',
         ]);
 
-        if (Auth::attempt($credentials, $request->boolean('remember'))) {
+        if (\Illuminate\Support\Facades\Auth::attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
 
+            //admin
+            if (\Illuminate\Support\Facades\Auth::user()->role === 'admin') {
+                return redirect()->route('admin.products.index')
+                    ->with('toast', ['type' => 'success', 'message' => 'Selamat datang, Admin.']);
+            }
+
+            //user
             return redirect()->intended(route('products.index'))
-                ->with('toast', ['type' => 'success', 'message' => 'Anda sudah berhasil login.']);
+                ->with('toast', ['type' => 'success', 'message' => 'Berhasil login.']);
         }
 
         return back()->withErrors([
             'email' => 'Email atau password salah.',
         ])->onlyInput('email');
     }
+
 
     public function logout(Request $request)
     {

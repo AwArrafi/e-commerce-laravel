@@ -8,6 +8,8 @@ use App\Models\OrderItem;
 use App\Models\Product;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class CheckoutController extends Controller
 {
@@ -104,5 +106,20 @@ class CheckoutController extends Controller
         $order->load('items.product');
 
         return view('orders.invoice', compact('order'));
+    }
+
+    public function downloadPdf(Order $order)
+    {
+        // Proteksi: hanya pemilik order yang boleh download
+        if ($order->user_id && $order->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        $order->load('items.product');
+
+        $pdf = Pdf::loadView('orders.invoice_pdf', compact('order'))
+            ->setPaper('a4', 'portrait');
+
+        return $pdf->download("invoice-{$order->invoice_number}.pdf");
     }
 }

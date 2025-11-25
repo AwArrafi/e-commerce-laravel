@@ -64,8 +64,25 @@
             </div>
         </div>
 
-        <div class="text-xs text-gray-500">
-            <p>Terima kasih telah berbelanja di Toko Alat Kesehatan.</p>
+        <div class="flex justify-end text-xs text-gray-500">
+            <p>Terima kasih telah berbelanja di Toko Alat Kesehatan Mitra.</p>
         </div>
+
+        <div class="flex items-center justify-between mt-6">
+            <a href="{{ route('products.index') }}"
+                class="inline-flex items-center px-4 py-2 text-sm font-medium
+              bg-gray-200 text-gray-800 rounded hover:bg-gray-300">
+                ← Kembali Belanja
+            </a>
+
+            <a href="{{ route('orders.invoice.pdf', $order->id) }}"
+                class="inline-flex items-center px-4 py-2 text-sm font-medium
+              bg-blue-600 text-white rounded hover:bg-blue-700">
+                Download PDF
+            </a>
+        </div>
+
+
+
     </div>
 @endsection

@@ -38,7 +38,7 @@
                         @endif
                     </a>
 
-                    <a href="{{ route('orders.index') }}" class="hover:underline">Riwayat</a>
+
 
                     <form action="{{ route('logout') }}" method="POST" class="inline">
                         @csrf
@@ -92,6 +92,32 @@
     <main>
         @yield('content')
     </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('[data-toggle-password]').forEach((btn) => {
+                btn.addEventListener('click', () => {
+                    const targetId = btn.getAttribute('data-target');
+                    const input = document.getElementById(targetId);
+                    if (!input) return;
+
+                    const isHidden = input.type === 'password';
+                    input.type = isHidden ? 'text' : 'password';
+
+                    const eye = btn.querySelector('[data-eye]');
+                    const eyeOff = btn.querySelector('[data-eye-off]');
+                    if (eye && eyeOff) {
+                        eye.classList.toggle('hidden', isHidden);
+                        eyeOff.classList.toggle('hidden', !isHidden);
+                    }
+
+                    btn.setAttribute('aria-label', isHidden ? 'Sembunyikan password' :
+                        'Tampilkan password');
+                });
+            });
+        });
+    </script>
+
 
 </body>
 

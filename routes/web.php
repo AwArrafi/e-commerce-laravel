@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ProductAdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
@@ -40,5 +41,22 @@ Route::middleware('auth')->group(function () {
 
     // invoice & riwayat (nanti kita isi OrderController)
     Route::get('/invoice/{order}', [CheckoutController::class, 'invoice'])->name('orders.invoice');
+    Route::get('/invoice/{order}/pdf', [CheckoutController::class, 'downloadPdf'])
+        ->name('orders.invoice.pdf');
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
 });
+
+Route::middleware(['auth', 'admin'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+        Route::get('/products', [ProductAdminController::class, 'index'])->name('products.index');
+        Route::get('/products/create', [ProductAdminController::class, 'create'])->name('products.create');
+        Route::post('/products', [ProductAdminController::class, 'store'])->name('products.store');
+        Route::get('/products/{product}/edit', [ProductAdminController::class, 'edit'])->name('products.edit');
+        Route::put('/products/{product}', [ProductAdminController::class, 'update'])->name('products.update');
+        Route::delete('/products/{product}', [ProductAdminController::class, 'destroy'])->name('products.destroy');
+
+        // update stok 
+        Route::patch('/products/{product}/stock', [ProductAdminController::class, 'updateStock'])->name('products.stock');
+    });
