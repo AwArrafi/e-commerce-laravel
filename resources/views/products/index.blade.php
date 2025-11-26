@@ -30,9 +30,9 @@
                             <p class="text-lg font-bold mb-2">
                                 Rp {{ number_format($product->price, 0, ',', '.') }}
                             </p>
-                            <p class="text-xs text-gray-500 mb-3">
+                            {{-- <p class="text-xs text-gray-500 mb-3">
                                 Stok: {{ $product->stock }}
-                            </p>
+                            </p> --}}
 
                             @if ($product->stock > 0)
                                 <form action="{{ route('cart.add', $product->id) }}" method="POST">

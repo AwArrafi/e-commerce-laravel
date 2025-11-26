@@ -43,7 +43,8 @@
                     <form action="{{ route('logout') }}" method="POST" class="inline">
                         @csrf
                         <button type="submit" class="hover:underline">
-                            Logout ({{ auth()->user()->name }})
+                            Logout
+                            {{-- ({{ auth()->user()->name }}) --}}
                         </button>
                     </form>
                 @else

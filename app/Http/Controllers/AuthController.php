@@ -33,10 +33,12 @@ class AuthController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
-        Auth::login($user);
 
-        return redirect()->route('products.index')
-            ->with('toast', ['type' => 'success', 'message' => 'Anda berhasil register.']);
+        return redirect()->route('login')
+            ->with('toast', [
+                'type' => 'success',
+                'message' => 'Registrasi berhasil. Silakan login.',
+            ]);
     }
 
     public function login(Request $request)

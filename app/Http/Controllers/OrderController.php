@@ -9,7 +9,7 @@ class OrderController extends Controller
 {
     public function index()
     {
-        // nanti: riwayat pembelian user login
+        // riwayat pembelian user login
         $orders = Order::where('user_id', Auth::id())
             ->latest()
             ->withCount('items')

@@ -35,7 +35,6 @@ class CartController extends Controller
         $existingQty = isset($cart[$product->id]) ? $cart[$product->id]['quantity'] : 0;
         $newQty = $existingQty + $quantity;
 
-        // ⬇️ cek stok
         if ($newQty > $product->stock) {
             return redirect()->route('cart.index')
                 ->with('error', 'Stok produk "' . $product->name . '" tidak mencukupi. Stok tersisa: ' . $product->stock);

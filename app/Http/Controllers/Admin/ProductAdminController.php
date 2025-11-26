@@ -26,7 +26,7 @@ class ProductAdminController extends Controller
             'description' => 'nullable|string',
             'price' => 'required|integer|min:0',
             'stock' => 'required|integer|min:0',
-            'image_path' => 'nullable|string', // kamu pakai URL langsung
+            'image_path' => 'nullable|string',
         ]);
 
         Product::create($data);
